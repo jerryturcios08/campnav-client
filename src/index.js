@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import App from './routes/router';
+import AppRouter from './routes/router';
 import * as serviceWorker from './javascript/serviceWorker';
 
 import './stylesheets/index.css';
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <AppRouter />
   </BrowserRouter>,
   document.getElementById('root')
 );

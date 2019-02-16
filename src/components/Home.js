@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 
 import '../stylesheets/App.css';
@@ -6,17 +7,32 @@ import '../stylesheets/App.css';
 export default class App extends Component {
   constructor(props) {
     super(props);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
+    this.imageInput = null;
     this.state = {
-      image: null,
-      isUploaded: false
+      isUploadable: false
     };
   }
 
+  handleFormSubmit(e) {
+    console.log(this.imageInput.files);
+
+    e.preventDefault();
+  }
+
+  handleImageChange() {
+    this.setState({
+      isUploadable: true
+    });
+  }
+
   render() {
-    let submitButton = this.state.isUploaded ? (
+    let submitButton = this.state.isUploadable ? (
       <Button
         style={{ backgroundColor: '#000000', color: 'white' }}
         variant="contained"
+        onClick={this.handleFormSubmit}
       >
         Submit
       </Button>
@@ -45,18 +61,25 @@ export default class App extends Component {
           </Toolbar>
         </AppBar>
         <div className="content">
-          <input
-            className="inputfile"
-            type="file"
-            name="file"
-            id="file"
-            accept="image/*"
-            capture="camera"
-          />
-          <label htmlFor="file">
-            <i className="fas fa-camera" />
-          </label>
-          <div>{submitButton}</div>
+          <form>
+            <input
+              className="inputfile"
+              type="file"
+              name="file"
+              id="file"
+              accept="image/*"
+              capture="camera"
+              onChange={this.handleImageChange}
+              ref={(e) => {this.imageInput = e;}}
+            />
+            <label htmlFor="file">
+              <i className="fas fa-camera" />
+            </label>
+            <div>{submitButton}</div>
+          </form>
+          <Link to="/result">
+            <button>Test to result</button>
+          </Link>
         </div>
       </div>
     );
