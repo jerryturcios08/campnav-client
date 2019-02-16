@@ -1,0 +1,53 @@
+body {
+  background-color: #bebebe;
+  text-align: center;
+}
+
+label {
+  border-radius: 2vh;
+  box-shadow: 0px 0.3vh 0.3vh rgb(105, 105, 105);
+  margin: 2vh 0;
+  padding: 3vh 3vh;
+}
+
+@media only screen and (min-width: 1025px) {
+  .content {
+    padding: 20% 0;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .content {
+    padding: 50% 0;
+  }
+}
+
+.input {
+  width: 0 50%;
+}
+
+.inputfile {
+  width: 0.1vh;
+  height: 0.1vh;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  font-size: 4vh;
+  font-weight: 700;
+  color: white;
+  background-color: #990000;
+  display: inline-block;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: #990000;
+}
+
+.inputfile + label {
+  cursor: pointer; /* "hand" cursor */
+}
