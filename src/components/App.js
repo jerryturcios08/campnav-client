@@ -3,8 +3,33 @@ import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 
 import '../stylesheets/App.css';
 
-class App extends Component {
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      image: null,
+      isUploaded: false
+    };
+  }
+
   render() {
+    let submitButton = this.state.isUploaded ? (
+      <Button
+        style={{ backgroundColor: '#000000', color: 'white' }}
+        variant="contained"
+      >
+        Submit
+      </Button>
+    ) : (
+      <Button
+        style={{ backgroundColor: 'grey', color: 'white' }}
+        variant="contained"
+        disabled
+      >
+        Submit
+      </Button>
+    );
+
     return (
       <div className="App">
         <AppBar
@@ -31,21 +56,9 @@ class App extends Component {
           <label htmlFor="file">
             <i className="fas fa-camera" />
           </label>
-          <div>
-            <Button
-              style={{
-                backgroundColor: '#000000',
-                color: 'white'
-              }}
-              variant="contained"
-            >
-              Submit
-            </Button>
-          </div>
+          <div>{submitButton}</div>
         </div>
       </div>
     );
   }
 }
-
-export default App;
