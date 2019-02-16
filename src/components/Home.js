@@ -16,9 +16,31 @@ export default class App extends Component {
   }
 
   handleFormSubmit(e) {
+    e.preventDefault();
     console.log(this.imageInput.files);
 
-    e.preventDefault();
+    const files = this.imageInput.files;
+    const formData = new FormData();
+    const file = files[0];
+
+    if (!file.type.match('image.*')) {
+      return;
+    }
+
+    formData.append('photo', file, file.name);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://0.0.0.0:5000/api', true);
+
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        console.log(xhr.response);
+      } else {
+        console.log('Error!');
+      }
+    };
+
+    xhr.send(formData);
   }
 
   handleImageChange() {
@@ -70,7 +92,9 @@ export default class App extends Component {
               accept="image/*"
               capture="camera"
               onChange={this.handleImageChange}
-              ref={(e) => {this.imageInput = e;}}
+              ref={e => {
+                this.imageInput = e;
+              }}
             />
             <label htmlFor="file">
               <i className="fas fa-camera" />
