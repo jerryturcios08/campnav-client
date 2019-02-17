@@ -62,7 +62,7 @@ export default class App extends Component {
     formData.append('photo', file, file.name);
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://0.0.0.0:5000/api', true);
+    xhr.open('POST', 'http://0ee56b97.ngrok.io/api', true);
 
     xhr.onload = function() {
       if (xhr.status === 200) {
