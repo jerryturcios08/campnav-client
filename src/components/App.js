@@ -1,18 +1,51 @@
 import React, { Component } from 'react';
+import Modal from 'react-modal';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 import '../stylesheets/App.css';
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+};
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
     this.imageInput = null;
     this.state = {
+      isUploadable: false,
+      photoName: '',
+      photoScore: 0,
       responseData: null,
-      isUploadable: false
+      modalIsOpen: false
     };
+  }
+
+  openModal() {
+    this.setState({
+      modalIsOpen: true
+    });
+  }
+
+  afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    // this.subtitle.style.color = '#f00';
+  }
+
+  closeModal() {
+    this.setState({ modalIsOpen: false });
   }
 
   handleFormSubmit(e) {
@@ -34,8 +67,10 @@ export default class App extends Component {
     xhr.onload = function() {
       if (xhr.status === 200) {
         this.setState({
-          responseData: xhr.response
+          responseData: JSON.parse(xhr.response)
         });
+
+        this.openModal();
       } else {
         return;
       }
@@ -95,6 +130,26 @@ export default class App extends Component {
             <div>{submitButton}</div>
           </form>
         </div>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <h1 className="modal-title">Results</h1>
+          {this.state.responseData ? (
+            <div>
+              <p>{this.state.responseData.name}</p>
+              <p>{this.state.responseData.score}</p>
+            </div>
+          ) : (
+            <div>
+              <p>None</p>
+              <p>0</p>
+            </div>
+          )}
+        </Modal>
       </div>
     );
   }
