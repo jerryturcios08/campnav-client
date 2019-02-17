@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 import '../stylesheets/App.css';
@@ -11,13 +10,13 @@ export default class App extends Component {
     this.handleImageChange = this.handleImageChange.bind(this);
     this.imageInput = null;
     this.state = {
+      responseData: null,
       isUploadable: false
     };
   }
 
   handleFormSubmit(e) {
     e.preventDefault();
-    console.log(this.imageInput.files);
 
     const files = this.imageInput.files;
     const formData = new FormData();
@@ -34,11 +33,13 @@ export default class App extends Component {
 
     xhr.onload = function() {
       if (xhr.status === 200) {
-        console.log(xhr.response);
+        this.setState({
+          responseData: xhr.response
+        });
       } else {
-        console.log('Error!');
+        return;
       }
-    };
+    }.bind(this);
 
     xhr.send(formData);
   }
@@ -51,9 +52,9 @@ export default class App extends Component {
 
   render() {
     let submitButton = this.state.isUploadable ? (
-      <Link to="/result">
-        <button id="enabledSubmit">Submit</button>
-      </Link>
+      <button id="enabledSubmit" onClick={this.handleFormSubmit}>
+        Submit
+      </button>
     ) : (
       <button id="disabledSubmit" disabled>
         Submit
