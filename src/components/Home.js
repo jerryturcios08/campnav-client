@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 import '../stylesheets/App.css';
 
@@ -51,21 +51,13 @@ export default class App extends Component {
 
   render() {
     let submitButton = this.state.isUploadable ? (
-      <Button
-        style={{ backgroundColor: '#000000', color: 'white' }}
-        variant="contained"
-        onClick={this.handleFormSubmit}
-      >
-        Submit
-      </Button>
+      <Link to="/result">
+        <button id="enabledSubmit">Submit</button>
+      </Link>
     ) : (
-      <Button
-        style={{ backgroundColor: 'grey', color: 'white' }}
-        variant="contained"
-        disabled
-      >
+      <button id="disabledSubmit" disabled>
         Submit
-      </Button>
+      </button>
     );
 
     return (
@@ -101,9 +93,6 @@ export default class App extends Component {
             </label>
             <div>{submitButton}</div>
           </form>
-          <Link to="/result">
-            <button>Test to result</button>
-          </Link>
         </div>
       </div>
     );

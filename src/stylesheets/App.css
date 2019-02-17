@@ -3,6 +3,34 @@ body {
   text-align: center;
 }
 
+#disabledSubmit {
+  background-color: rgb(105, 105, 105);
+  border: 1px;
+  border-radius: 4px;
+  box-shadow: 0px 0.3vh 0.3vh rgb(105, 105, 105);
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  text-transform: uppercase;
+  width: 90px;
+}
+
+#enabledSubmit {
+  background-color: black;
+  border: 1px;
+  border-radius: 4px;
+  box-shadow: 0px 0.3vh 0.3vh rgb(105, 105, 105);
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  text-transform: uppercase;
+  width: 90px;
+}
+
+#enabledSubmit:hover {
+  cursor: pointer;
+}
+
 label {
   border-radius: 2vh;
   box-shadow: 0px 0.3vh 0.3vh rgb(105, 105, 105);
@@ -49,5 +77,5 @@ label {
 }
 
 .inputfile + label {
-  cursor: pointer; /* "hand" cursor */
+  cursor: pointer;
 }
